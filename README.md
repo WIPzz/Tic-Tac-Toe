@@ -2,6 +2,8 @@
 
 Tic-Tac-Toe minigame.
 
+Future additions: KI + score system
+
 Ignore the GUI. Only the code in 'Form1.cs' & 'Form2.cs' matter.
 
 ![alt text](https://i.imgur.com/rNh4SEn.png)
