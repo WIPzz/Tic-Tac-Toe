@@ -39,17 +39,21 @@
             this.bttn8 = new System.Windows.Forms.Button();
             this.bttn7 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
+            this.scoreX = new System.Windows.Forms.TextBox();
+            this.scoreO = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textBox1
             // 
+            this.textBox1.BackColor = System.Drawing.SystemColors.Control;
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.Location = new System.Drawing.Point(188, 23);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(312, 45);
+            this.textBox1.Size = new System.Drawing.Size(312, 38);
             this.textBox1.TabIndex = 0;
             this.textBox1.TabStop = false;
-            this.textBox1.Text = "O";
             this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
@@ -172,7 +176,8 @@
             // 
             // button10
             // 
-            this.button10.Location = new System.Drawing.Point(627, 23);
+            this.button10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button10.Location = new System.Drawing.Point(640, 23);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(75, 45);
             this.button10.TabIndex = 10;
@@ -180,12 +185,48 @@
             this.button10.UseVisualStyleBackColor = true;
             this.button10.Click += new System.EventHandler(this.restartBttn);
             // 
+            // scoreX
+            // 
+            this.scoreX.BackColor = System.Drawing.SystemColors.Control;
+            this.scoreX.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.scoreX.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.scoreX.Location = new System.Drawing.Point(0, 410);
+            this.scoreX.Name = "scoreX";
+            this.scoreX.Size = new System.Drawing.Size(179, 31);
+            this.scoreX.TabIndex = 11;
+            this.scoreX.Text = "PlayerX: 0";
+            // 
+            // scoreO
+            // 
+            this.scoreO.BackColor = System.Drawing.SystemColors.Control;
+            this.scoreO.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.scoreO.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.scoreO.Location = new System.Drawing.Point(619, 410);
+            this.scoreO.Name = "scoreO";
+            this.scoreO.Size = new System.Drawing.Size(179, 31);
+            this.scoreO.TabIndex = 12;
+            this.scoreO.Text = "PlayerO: 0";
+            // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(651, 334);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(137, 46);
+            this.button1.TabIndex = 13;
+            this.button1.Text = "Reset Score";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.resetScore);
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.scoreO);
+            this.Controls.Add(this.scoreX);
             this.Controls.Add(this.button10);
             this.Controls.Add(this.bttn9);
             this.Controls.Add(this.bttn8);
@@ -217,5 +258,8 @@
         private System.Windows.Forms.Button bttn8;
         private System.Windows.Forms.Button bttn7;
         private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.TextBox scoreX;
+        private System.Windows.Forms.TextBox scoreO;
+        private System.Windows.Forms.Button button1;
     }
 }

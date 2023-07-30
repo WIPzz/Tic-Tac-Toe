@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 /*
@@ -38,121 +31,179 @@ x - Game ends
 Fix
 - (KI  as opponent)
 x - Improve playerTurn() logic (Cleaner code) (Module?)
-- Better Win-Lose logic
+x - Better Win-Lose logic
     array / list ?
-- Add a draw
-- Add a Score
+x - Add a draw
+x - Add a Score
+x - Add a 2D Array for better code
+x - Score goes up for winner of the round if game ended and more buttons are pressed
+x - Restart game if score is resetted
+
 
 
 */
+
 
 namespace Tic_Tac_Toe
 {
     public partial class Form2 : Form
     {
-        int turnCount = 1;
+        private Button[,] board;
+        private int turnCount = 1;
+        private bool gameEnded = false;
 
-        private Button button1;
-        private Button button2;
-        private Button button3;
-        private Button button4;
-        private Button button5;
-        private Button button6;
-        private Button button7;
-        private Button button8;
-        private Button button9;
-
-        bool gameEnded = false;
-
+        private int playerX = 0;
+        private int playerO = 0;
 
         public Form2()
         {
             InitializeComponent();
-            button1 = bttn1;
-            button2 = bttn2;
-            button3 = bttn3;
-            button4 = bttn4;
-            button5 = bttn5;
-            button6 = bttn6;
-            button7 = bttn7;
-            button8 = bttn8;
-            button9 = bttn9;
+            board = new Button[3, 3] {
+                { bttn1, bttn2, bttn3 },
+                { bttn4, bttn5, bttn6 },
+                { bttn7, bttn8, bttn9 }
+            };
+            textBox1.Text = "X";
         }
 
+        //Ignore
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            
-        }
 
-        // Shape buttons
+        }
+        
+        // Click X / O button
         private void clickBttn(object sender, EventArgs e)
         {
             Button button = (Button)sender;
 
-            // Checks if the game ended
             if (!gameEnded && button.Text == "")
             {
-                playerTurn(button);
+                button.Text = (turnCount == 1) ? "X" : "O";
+                turnCount = (turnCount % 2) + 1;
+                textBox1.Text = (turnCount == 1) ? "X" : "O";
+            }
+            if (!gameEnded)
+            {
                 checkWin();
             }
         }
-        
-        // Swaps between Player1 & Player2
-        private void playerTurn(Button button)
-        {
-            turnCount = (turnCount % 2) + 1;
 
-            button.Text = (turnCount == 1) ? "X" : "O";
-            textBox1.Text = (turnCount == 1) ? "O" : "X";
-        }
-
-        // Win logic
+        // Checks if a player wins
         private void checkWin()
         {
-            if (bttn1.Text == "X" && bttn2.Text == "X" && bttn3.Text == "X" ||
-                bttn4.Text == "X" && bttn5.Text == "X" && bttn6.Text == "X" ||
-                bttn7.Text == "X" && bttn8.Text == "X" && bttn9.Text == "X" ||
-                bttn1.Text == "X" && bttn4.Text == "X" && bttn7.Text == "X" ||
-                bttn2.Text == "X" && bttn5.Text == "X" && bttn8.Text == "X" ||
-                bttn3.Text == "X" && bttn6.Text == "X" && bttn9.Text == "X" ||
-                bttn1.Text == "X" && bttn5.Text == "X" && bttn9.Text == "X" ||
-                bttn3.Text == "X" && bttn5.Text == "X" && bttn7.Text == "X")
-            {
-                textBox1.Text = "Player1 wins!";
-                gameEnded = true;
-                return;
+            string[] players = { "X", "O" };
 
-            }
-            else if (bttn1.Text == "O" && bttn2.Text == "O" && bttn3.Text == "O" ||
-                     bttn4.Text == "O" && bttn5.Text == "O" && bttn6.Text == "O" ||
-                     bttn7.Text == "O" && bttn8.Text == "O" && bttn9.Text == "O" ||
-                     bttn1.Text == "O" && bttn4.Text == "O" && bttn7.Text == "O" ||
-                     bttn2.Text == "O" && bttn5.Text == "O" && bttn8.Text == "O" ||
-                     bttn3.Text == "O" && bttn6.Text == "O" && bttn9.Text == "O" ||
-                     bttn1.Text == "O" && bttn5.Text == "O" && bttn9.Text == "O" ||
-                     bttn3.Text == "O" && bttn5.Text == "O" && bttn7.Text == "O")
+            foreach (string player in players)
             {
-                textBox1.Text = "Player2 wins!";
+                for (int row = 0; row < 3; row++)
+                {
+                    // Check rows
+                    if (board[row, 0].Text == player && board[row, 1].Text == player && board[row, 2].Text == player)
+                    {
+                        gameEnded = true;
+                        textBox1.Text = $"{player} wins!";
+
+                        // For score
+                        if (player == "X")
+                        {
+                            playerX++;
+                        }
+                        else if (player == "O")
+                        {
+                            playerO++;
+                        }
+                        
+                        scoreX.Text = "PlayerX: " + playerX.ToString();
+                        scoreO.Text = "PlayerO: " + playerO.ToString();
+                        return;
+                    }
+
+                    // Check columns
+                    if (board[0, row].Text == player && board[1, row].Text == player && board[2, row].Text == player)
+                    {
+                        gameEnded = true;
+                        textBox1.Text = $"{player} wins!";
+
+                        // For score
+                        if (player == "X")
+                        {
+                            playerX++;
+                        }
+                        else if (player == "O")
+                        {
+                            playerO++;
+                        }
+
+                        scoreX.Text = "PlayerX: " + playerX.ToString();
+                        scoreO.Text = "PlayerO: " + playerO.ToString();
+                        return;
+                    }
+                }
+
+                // Check diagonals
+                if ((board[0, 0].Text == player && board[1, 1].Text == player && board[2, 2].Text == player) ||
+                    (board[0, 2].Text == player && board[1, 1].Text == player && board[2, 0].Text == player))
+                {
+                    gameEnded = true;
+                    textBox1.Text = $"{player} wins!";
+
+                    // For score
+                    if (player == "X")
+                    {
+                        playerX++;
+                    }
+                    else if (player == "O")
+                    {
+                        playerO++;
+                    }
+
+                    scoreX.Text = "PlayerX: " + playerX.ToString();
+                    scoreO.Text = "PlayerO: " + playerO.ToString();
+                    return;
+                }
+            }
+
+            // Check for a draw
+            bool isDraw = true;
+            foreach (Button button in board)
+            {
+                if (button.Text == "")
+                {
+                    isDraw = false;
+                    break;
+                }
+            }
+
+            if (isDraw)
+            {
                 gameEnded = true;
-                return;
+                textBox1.Text = "Draw";
             }
         }
 
-        //Restart button
+        // Restart button
         private void restartBttn(object sender, EventArgs e)
         {
-            textBox1.Text = "O";
-            bttn1.Text = "";
-            bttn2.Text = "";
-            bttn3.Text = "";
-            bttn4.Text = "";
-            bttn5.Text = "";
-            bttn6.Text = "";
-            bttn7.Text = "";
-            bttn8.Text = "";
-            bttn9.Text = "";
+            textBox1.Text = "X";
+            foreach (Button button in board)
+            {
+                button.Text = "";
+            }
+
             gameEnded = false;
             turnCount = 1;
         }
+
+        //Scoreboard
+        private void resetScore(object sender, EventArgs e)
+        {
+            restartBttn(sender, e);
+            playerX = 0;
+            playerO = 0;
+            scoreX.Text = "PlayerX: " + playerX.ToString();
+            scoreO.Text = "PlayerO: " + playerO.ToString();
+        }
     }
 }
+
