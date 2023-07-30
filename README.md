@@ -2,7 +2,7 @@
 
 Tic-Tac-Toe minigame.
 
-Future additions: KI + score system
+Future additions: KI + ~~score system~~
 
 Ignore the GUI. Only the code in 'Form1.cs' & 'Form2.cs' matter.
 
